@@ -149,30 +149,4 @@ def gerar_relatorio(df_reposicao):
     print(relatorio.head(10))
     
     return relatorio
-
-
-# ============= FLUXO PRINCIPAL =============
-
-if __name__ == "__main__":
-    # Carregar dados
-    df_vendas, df_estoque_lojas, df_estoque_cd = carregar_dados()
     
-    # Preparar lojas
-    df_lojas = preparar_lojas(df_vendas, df_estoque_lojas)
-    
-    # Calcular necessidade
-    df_lojas = calcular_necessidade_estoque(df_lojas)
-    
-    # Ordenar por prioridade (menor cobertura = maior prioridade)
-    df_reposicao = df_lojas.sort_values(by='Cobertura Atual', ascending=True)
-    
-    # Alocar estoque do CD
-    df_reposicao, available = alocar_estoque_cd(df_reposicao, df_estoque_cd)
-    
-    # Gerar relatório
-    relatorio = gerar_relatorio(df_reposicao)
-    
-    # Exibir resultados
-    exibir_resultados(df_reposicao, available)
-
-fim
